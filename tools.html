@@ -128,43 +128,19 @@
         }
         .tool-image {
             width: 100%;
-            height: 180px;
-            background: linear-gradient(135deg, rgba(255,107,53,0.1), rgba(255,140,90,0.05));
+            height: 200px;
+            background: #f8f9fa;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             overflow: hidden;
+            padding: 16px;
         }
-        .tool-image::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 60px;
-            background: linear-gradient(to top, #ffffff, transparent);
-        }
-        .tool-icon {
-            width: 72px;
-            height: 72px;
-            border-radius: 16px;
-            background: linear-gradient(135deg, #ff6b35, #ff8c5a);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 24px rgba(255,107,53,0.3);
-            transition: all 0.3s ease;
-        }
-        .tool-card:hover .tool-icon {
-            transform: scale(1.1);
-        }
-        .tool-icon svg {
-            width: 36px;
-            height: 36px;
-            stroke: #ffffff;
-            stroke-width: 2.5;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        .tool-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
         }
         .tool-content {
             padding: 24px 28px 28px;
@@ -323,12 +299,7 @@
                 <!-- Break Even ROAS -->
                 <a href="break-even-roas-calculator.html" class="tool-card" style="display:block;text-decoration:none">
                     <div class="tool-image">
-                        <div class="tool-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="12" y1="1" x2="12" y2="23"></line>
-                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                            </svg>
-                        </div>
+                        <img src="images/roas.gif" alt="ROAS Calculator">
                     </div>
                     <div class="tool-content">
                         <h3>Break Even ROAS</h3>
@@ -340,13 +311,7 @@
                 <!-- Margin vs Markup -->
                 <a href="margin-vs-markup-calculator.html" class="tool-card" style="display:block;text-decoration:none">
                     <div class="tool-image">
-                        <div class="tool-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <line x1="12" y1="8" x2="12" y2="12"></line>
-                                <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                            </svg>
-                        </div>
+                        <img src="images/Margin-Vs-Markup-Calculator.gif" alt="Margin vs Markup Calculator">
                     </div>
                     <div class="tool-content">
                         <h3>Margin vs Markup</h3>
@@ -358,12 +323,7 @@
                 <!-- ACoS to ROAS -->
                 <a href="acos-to-roas-calculator.html" class="tool-card" style="display:block;text-decoration:none">
                     <div class="tool-image">
-                        <div class="tool-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
-                                <polyline points="17 6 23 6 23 12"></polyline>
-                            </svg>
-                        </div>
+                        <img src="images/acos-to-roas.gif" alt="ACoS to ROAS Calculator">
                     </div>
                     <div class="tool-content">
                         <h3>ACoS to ROAS</h3>
@@ -375,12 +335,7 @@
                 <!-- MER Calculator -->
                 <a href="mer-calculator.html" class="tool-card" style="display:block;text-decoration:none">
                     <div class="tool-image">
-                        <div class="tool-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 2v20M2 12h20"></path>
-                                <circle cx="12" cy="12" r="10"></circle>
-                            </svg>
-                        </div>
+                        <img src="images/marketing-ratio.gif" alt="MER Calculator">
                     </div>
                     <div class="tool-content">
                         <h3>MER Calculator</h3>
@@ -392,11 +347,7 @@
                 <!-- Net Burn Rate -->
                 <a href="net-burn-rate-calculator.html" class="tool-card" style="display:block;text-decoration:none">
                     <div class="tool-image">
-                        <div class="tool-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"></path>
-                            </svg>
-                        </div>
+                        <img src="images/net-burn-rate.gif" alt="Net Burn Rate Calculator">
                     </div>
                     <div class="tool-content">
                         <h3>Net Burn Rate</h3>
@@ -408,12 +359,7 @@
                 <!-- Inventory Turnover -->
                 <a href="inventory-turnover-calculator.html" class="tool-card" style="display:block;text-decoration:none">
                     <div class="tool-image">
-                        <div class="tool-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="2" y="7" width="20" height="14" rx="2"></rect>
-                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                            </svg>
-                        </div>
+                        <img src="images/inventory.gif" alt="Inventory Turnover Calculator">
                     </div>
                     <div class="tool-content">
                         <h3>Inventory Turnover</h3>
@@ -425,12 +371,7 @@
                 <!-- Contribution Margin -->
                 <a href="contribution-margin-calculator.html" class="tool-card" style="display:block;text-decoration:none">
                     <div class="tool-image">
-                        <div class="tool-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="12" y1="1" x2="12" y2="23"></line>
-                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                            </svg>
-                        </div>
+                        <img src="images/Contribution-margin.gif" alt="Contribution Margin Calculator">
                     </div>
                     <div class="tool-content">
                         <h3>Contribution Margin</h3>
@@ -442,14 +383,7 @@
                 <!-- CAC Calculator -->
                 <a href="cac-calculator.html" class="tool-card" style="display:block;text-decoration:none">
                     <div class="tool-image">
-                        <div class="tool-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M17 21v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2"></path>
-                                <circle cx="9" cy="7" r="4"></circle>
-                                <path d="M23 21v-2a2 2 0 0 0-3-3"></path>
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                            </svg>
-                        </div>
+                        <img src="images/cac.gif" alt="CAC Calculator">
                     </div>
                     <div class="tool-content">
                         <h3>CAC Calculator</h3>
