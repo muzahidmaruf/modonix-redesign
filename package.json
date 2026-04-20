@@ -1,0 +1,21 @@
+{
+    "name":  "modonix-redesign",
+    "version":  "1.0.0",
+    "private":  true,
+    "scripts":  {
+                    "preview":  "vite preview",
+                    "build":  "vite build",
+                    "dev":  "vite"
+                },
+    "devDependencies":  {
+                            "vite":  "^6.4.1"
+                        },
+    "description":  "",
+    "main":  "vite.config.js",
+    "keywords":  [
+
+                 ],
+    "author":  "",
+    "license":  "ISC",
+    "type":  "commonjs"
+}
