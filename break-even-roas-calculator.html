@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Break-Even ROAS Calculator – Modonix eComm Tool</title>
+    <meta name="description" content="Calculate the minimum ROAS you need to break even on ads across Facebook, Google, TikTok, and more.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .tool-hero {
+            background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+            padding: 100px 0 60px;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+        .tool-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(255,107,53,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .tool-hero-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .tool-hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 16px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+        }
+        .tool-hero .breadcrumb { margin-top: 0; }
+        .tool-content {
+            padding: 40px 0;
+            background: #f8f9fa;
+        }
+        .content-section {
+            margin-bottom: 28px;
+        }
+        .tool-main {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+        .calculator-box {
+            background: #ffffff;
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 20px;
+            padding: 32px;
+            position: sticky;
+            top: 120px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            color: #3f3f46;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            background: #fafafa;
+            border: 1px solid rgba(0,0,0,0.12);
+            border-radius: 10px;
+            color: #1a1a2e;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.2s;
+            box-sizing: border-box;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #ff6b35;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(255,107,53,0.15);
+        }
+        .calculate-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #ff6b35, #ff8c5a);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 8px;
+        }
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255,107,53,0.3);
+        }
+        .result-box {
+            background: rgba(255,107,53,0.08);
+            border: 1px solid rgba(255,107,53,0.2);
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 24px;
+            text-align: center;
+        }
+        .result-label {
+            font-size: 0.8rem;
+            color: #ff6b35;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        .result-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #1a1a2e;
+        }
+        .result-note {
+            font-size: 0.9rem;
+            color: #52525b;
+            margin-top: 12px;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+        .content-section {
+            margin-bottom: 28px;
+        }
+        .example-box {
+            margin: 16px 0;
+        }
+        .formula-box {
+            margin: 16px 0;
+        }
+        .content-section h2 {
+            font-size: 1.5rem;
+            color: #1a1a2e;
+            margin-bottom: 16px;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+        .content-section p, .content-section li {
+            font-size: 1rem;
+            color: #3f3f46;
+            line-height: 1.8;
+            font-weight: 400;
+        }
+        .content-section ul {
+            padding-left: 20px;
+        }
+        .content-section li {
+            margin-bottom: 12px;
+        }
+        .formula-box {
+            background: rgba(255,107,53,0.08);
+            border-left: 3px solid #ff6b35;
+            padding: 20px;
+            border-radius: 0 10px 10px 0;
+            margin: 24px 0;
+        }
+        .formula-box code {
+            font-size: 1.15rem;
+            color: #ff6b35;
+            font-family: monospace;
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .example-box {
+            background: #ffffff;
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+        }
+        .example-box h4 {
+            color: #1a1a2e;
+            margin-bottom: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        .breadcrumb {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+            font-size: 0.9rem;
+        }
+        .breadcrumb a {
+            color: #52525b;
+            font-weight: 500;
+        }
+        .breadcrumb a:hover {
+            color: #ff6b35;
+        }
+        .breadcrumb span {
+            color: #a1a1aa;
+        }
+        @media (max-width: 900px) {
+            .tool-main {
+                grid-template-columns: 1fr;
+            }
+            .calculator-box {
+                position: static;
+            }
+            .tool-hero-inner {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .tool-hero-image {
+                order: -1;
+            }
+            .tool-hero-image img {
+                max-height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <img src="images/modonixlogosm600.webp" alt="Modonix" style="height:40px">
+            </a>
+            <nav class="nav-desktop">
+                <a href="about-us.html" class="nav-link">About</a>
+                <div class="nav-dropdown">
+                    <a href="services.html" class="nav-link">Services</a>
+                    <div class="dropdown-menu">
+                        <a href="marketplace-management.html">Marketplace Management</a>
+                        <a href="content-management.html">Content Management</a>
+                        <a href="e-commerce-consulting.html">E-Commerce Consulting</a>
+                        <a href="paid-ads-management.html">Paid Ads Management</a>
+                        <a href="web-design-and-development.html">Web Design & Development</a>
+                    </div>
+                </div>
+                <a href="who-we-help.html" class="nav-link">Who We Help</a>
+                <a href="pricing.html" class="nav-link">Pricing</a>
+                <a href="case-studies.html" class="nav-link">Case Studies</a>
+                <a href="resources.html" class="nav-link">Resources</a>
+                <a href="tools.html" class="nav-link">Tools</a>
+                <a href="contact-us.html" class="nav-link">Contact</a>
+                <a href="schedule-consultation.html" class="btn btn-sm nav-cta" style="background:#1a1a2e;color:#fff;border:none">Schedule Consultation</a>
+            </nav>
+            <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+        </div>
+    </header>
+
+    <div class="nav-mobile-overlay"></div>
+    <nav class="nav-mobile">
+        <a href="index.html">Home</a>
+        <a href="about-us.html">About Us</a>
+        <div class="mobile-dropdown-title">Services</div>
+        <div class="mobile-dropdown-items">
+            <a href="services.html">All Services</a>
+            <a href="marketplace-management.html">Marketplace Management</a>
+            <a href="content-management.html">Content Management</a>
+            <a href="e-commerce-consulting.html">E-Commerce Consulting</a>
+            <a href="paid-ads-management.html">Paid Ads Management</a>
+            <a href="web-design-and-development.html">Web Design & Development</a>
+        </div>
+        <a href="who-we-help.html">Who We Help</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="case-studies.html">Case Studies</a>
+        <a href="resources.html">Resources</a>
+        <a href="tools.html" style="color:#ff6b35">Tools</a>
+        <a href="contact-us.html">Contact Us</a>
+        <a href="schedule-consultation.html" class="btn" style="background:#1a1a2e;color:#fff">Schedule Consultation</a>
+    </nav>
+
+    <!-- Tool Hero -->
+    <section class="tool-hero">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span>/</span>
+                <a href="tools.html">Tools</a>
+                <span>/</span>
+                <span style="color:#1a1a2e;font-weight:600">Break-Even ROAS Calculator</span>
+            </div>
+            <div class="tool-hero-inner">
+                <div>
+                    <h1 style="font-size:clamp(2rem,4vw,2.8rem);color:#1a1a2e;margin-bottom:16px;font-weight:800;letter-spacing:-0.02em">Break-Even ROAS Calculator</h1>
+                    <p style="font-size:1.15rem;color:#52525b;max-width:700px;line-height:1.7;font-weight:400">Discover the minimum ROAS you need to break even on ads across Facebook, Google, TikTok, and more.</p>
+                </div>
+                <div class="tool-hero-image">
+                    <img src="images/target.png" alt="ROAS Target" style="max-height:280px">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tool Content -->
+    <section class="tool-content">
+        <div class="container">
+            <div class="tool-main">
+                <!-- Calculator -->
+                <div class="calculator-box">
+                    <h3 style="color:#fafafa;margin-bottom:24px;font-size:1.3rem">Calculate Your Break-Even ROAS</h3>
+                    <form onsubmit="return false;">
+                        <div class="form-group">
+                            <label for="salePrice">Sale Price ($)</label>
+                            <input type="number" id="salePrice" placeholder="e.g., 100" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="productCost">Product Cost / COGS ($)</label>
+                            <input type="number" id="productCost" placeholder="e.g., 60" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="additionalCosts">Additional Costs (shipping, fees, etc.) ($)</label>
+                            <input type="number" id="additionalCosts" placeholder="e.g., 10" step="0.01" value="0">
+                        </div>
+                        <button type="submit" class="calculate-btn" onclick="calculateBEROAS()">Calculate</button>
+                    </form>
+                    <div class="result-box" id="resultBox" style="display:none;">
+                        <div class="result-label">Break-Even ROAS</div>
+                        <div class="result-value" id="resultValue">2.00</div>
+                        <div class="result-note" id="resultNote">If your ROAS is above this number, you're profitable.</div>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div>
+                    <div class="content-section">
+                        <h2>What is Break-Even ROAS?</h2>
+                        <p>Break-Even ROAS (BEROAS) is the minimum Return on Ad Spend where your sales just cover your product cost and ad spend. It's the threshold between profitable and unprofitable advertising campaigns.</p>
+                        <p>Understanding your break-even point helps you make smarter bidding decisions and avoid campaigns that lose money despite appearing successful.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h2>How It Works</h2>
+                        <div class="formula-box">
+                            <code>Break-Even ROAS = Sale Price ÷ (Sale Price – COGS)</code>
+                        </div>
+                        <p>Where:</p>
+                        <ul>
+                            <li><strong>Sale Price:</strong> The price you sell your product for</li>
+                            <li><strong>COGS:</strong> Cost of Goods Sold (product cost + shipping + packaging + platform fees)</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-section">
+                        <h2>Example Calculation</h2>
+                        <div class="example-box">
+                            <h4>Scenario 1: Basic Calculation</h4>
+                            <p><strong>Sale Price:</strong> $40</p>
+                            <p><strong>COGS:</strong> $20</p>
+                            <p><strong>Break-Even ROAS:</strong> $40 ÷ ($40 - $20) = <strong>2.0</strong></p>
+                            <p style="margin-top:12px;color:#ff8c5a">This means you need at least $2 in revenue for every $1 spent on ads to break even.</p>
+                        </div>
+                        <div class="example-box">
+                            <h4>Scenario 2: Including Additional Costs</h4>
+                            <p><strong>Sale Price:</strong> $100</p>
+                            <p><strong>Product Cost:</strong> $40</p>
+                            <p><strong>Shipping + Fees:</strong> $25</p>
+                            <p><strong>Total COGS:</strong> $65</p>
+                            <p><strong>Break-Even ROAS:</strong> $100 ÷ ($100 - $65) = <strong>2.86</strong></p>
+                        </div>
+                    </div>
+
+                    <div class="content-section">
+                        <h2>Why This Matters</h2>
+                        <ul>
+                            <li><strong>See the Truth Behind ROAS:</strong> A ROAS of 3 might look good, but if your break-even is 2.5, your actual profit margin is thin.</li>
+                            <li><strong>Optimize Smarter:</strong> Know which campaigns are truly profitable vs. those just covering costs.</li>
+                            <li><strong>Budget With Confidence:</strong> Set realistic ROAS targets based on your actual margins.</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-section">
+                        <h2>Best Practices</h2>
+                        <ul>
+                            <li>Always include all relevant costs (COGS + shipping + platform fees + packaging)</li>
+                            <li>Calculate break-even ROAS for each product category, not just your average</li>
+                            <li>Use this as a baseline—aim for ROAS 20-30% above break-even for healthy profits</li>
+                            <li>Re-calculate when costs change (supplier price increases, shipping rate changes, etc.)</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-section" style="margin-top:40px;">
+                        <a href="tools.html" style="color:#ff6b35;text-decoration:underline">&larr; Back to All Tools</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <a href="index.html" class="logo">
+                        <img src="images/modonixlogosm600.webp" alt="Modonix" style="height:40px;margin-bottom:16px">
+                    </a>
+                    <p style="color:#71717a;line-height:1.7;margin-bottom:20px">Data-driven eCommerce growth strategies that deliver measurable results.</p>
+                </div>
+                <div>
+                    <h4 style="color:#fafafa;margin-bottom:16px">Quick Links</h4>
+                    <ul style="list-style:none;padding:0;margin:0">
+                        <li style="margin-bottom:10px"><a href="about-us.html" style="color:#a1a1aa">About Us</a></li>
+                        <li style="margin-bottom:10px"><a href="services.html" style="color:#a1a1aa">Services</a></li>
+                        <li style="margin-bottom:10px"><a href="tools.html" style="color:#ff6b35">Tools</a></li>
+                        <li style="margin-bottom:10px"><a href="case-studies.html" style="color:#a1a1aa">Case Studies</a></li>
+                        <li style="margin-bottom:10px"><a href="contact-us.html" style="color:#a1a1aa">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color:#fafafa;margin-bottom:16px">Services</h4>
+                    <ul style="list-style:none;padding:0;margin:0">
+                        <li style="margin-bottom:10px"><a href="marketplace-management.html" style="color:#a1a1aa">Marketplace Management</a></li>
+                        <li style="margin-bottom:10px"><a href="paid-ads-management.html" style="color:#a1a1aa">Paid Ads Management</a></li>
+                        <li style="margin-bottom:10px"><a href="content-management.html" style="color:#a1a1aa">Content Management</a></li>
+                        <li style="margin-bottom:10px"><a href="e-commerce-consulting.html" style="color:#a1a1aa">E-Commerce Consulting</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color:#fafafa;margin-bottom:16px">Contact</h4>
+                    <ul style="list-style:none;padding:0;margin:0">
+                        <li style="margin-bottom:10px;color:#a1a1aa">hello@modonix.com</li>
+                        <li style="margin-bottom:10px;color:#a1a1aa">Schedule a Call</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p style="color:#52525b">&copy; 2025 Modonix. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function calculateBEROAS() {
+            const salePrice = parseFloat(document.getElementById('salePrice').value);
+            const productCost = parseFloat(document.getElementById('productCost').value);
+            const additionalCosts = parseFloat(document.getElementById('additionalCosts').value) || 0;
+
+            if (!salePrice || !productCost) {
+                alert('Please enter valid values for Sale Price and Product Cost.');
+                return;
+            }
+
+            const totalCOGS = productCost + additionalCosts;
+            const profit = salePrice - totalCOGS;
+
+            if (profit <= 0) {
+                document.getElementById('resultValue').textContent = 'N/A';
+                document.getElementById('resultNote').textContent = 'Your costs exceed your sale price. You cannot break even at any ROAS.';
+                document.getElementById('resultBox').style.display = 'block';
+                return;
+            }
+
+            const breakEvenROAS = salePrice / profit;
+            document.getElementById('resultValue').textContent = breakEvenROAS.toFixed(2);
+            document.getElementById('resultNote').textContent = `If your ROAS is above ${breakEvenROAS.toFixed(2)}, you're profitable. Below this, you're losing money on each sale.`;
+            document.getElementById('resultBox').style.display = 'block';
+        }
+
+        // Mobile menu toggle
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            document.querySelector('.nav-mobile').classList.toggle('active');
+            document.querySelector('.nav-mobile-overlay').classList.toggle('active');
+        });
+
+        document.querySelector('.nav-mobile-overlay').addEventListener('click', function() {
+            document.querySelector('.nav-mobile').classList.remove('active');
+            this.classList.remove('active');
+        });
+    </script>
+</body>
+</html>
